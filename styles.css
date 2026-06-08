@@ -1,0 +1,233 @@
+/* ============================================================
+   Kasa — Figma UI Kit · Design System Documentation
+   Shared stylesheet (tokens · layout · nav · typography)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;500;600;700&family=Anek+Latin:wght@400;500;600;700&display=swap');
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Brand colors */
+  --amber:    #E9901E;
+  --cream:    #F5F0E8;
+  --crimson:  #BE1737;
+  --navy:     #004982;
+  --forest:   #0C3D2E;
+  --charcoal: #1E1E1A;
+  --white:    #FFFFFF;
+
+  /* Derived neutrals */
+  --ink:        #1E1E1A;
+  --ink-60:     rgba(30, 30, 26, 0.60);
+  --ink-40:     rgba(30, 30, 26, 0.40);
+  --line:       rgba(30, 30, 26, 0.10);
+  --line-soft:  rgba(30, 30, 26, 0.06);
+  --amber-soft: rgba(233, 144, 30, 0.12);
+
+  /* Type families */
+  --font-display: 'Anek Devanagari', sans-serif; /* H1–H3, body */
+  --font-ui:      'Anek Latin', sans-serif;       /* nav, labels */
+
+  /* Type scale */
+  --t-h1: 56px;
+  --t-h2: 36px;
+  --t-h3: 24px;
+  --t-body: 16px;
+  --t-small: 14px;
+  --t-label: 12px;
+  --t-nav: 16px;
+
+  /* Layout */
+  --nav-w: 280px;
+  --maxw: 920px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--t-body);
+  line-height: 1.6;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+/* ---------- Typography scale ---------- */
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0; line-height: 1.1; }
+h1 { font-size: var(--t-h1); letter-spacing: -0.02em; }
+h2 { font-size: var(--t-h2); letter-spacing: -0.01em; }
+h3 { font-size: var(--t-h3); }
+.body-lg { font-size: var(--t-body); }
+.body-sm { font-size: var(--t-small); color: var(--ink-60); }
+.label {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+/* ============================================================
+   Layout shell
+   ============================================================ */
+.shell { display: flex; min-height: 100vh; }
+
+/* ---------- Sidebar nav ---------- */
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--nav-w);
+  height: 100vh;
+  background: var(--white);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 10;
+}
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 28px 28px 24px;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-soft);
+}
+.nav-logo-img {
+  width: 116px;
+  height: auto;
+  display: block;
+}
+.nav-logo-sub {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  padding-left: 2px;
+}
+
+.nav-sections { padding: 16px 0 32px; }
+.nav-group { border: none; }
+.nav-group-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+}
+.nav-group-head:hover { color: var(--ink-60); }
+.nav-chev {
+  width: 9px; height: 9px;
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.25s var(--ease);
+}
+.nav-group.collapsed .nav-chev { transform: rotate(-45deg); }
+.nav-group-links { display: flex; flex-direction: column; overflow: hidden; }
+.nav-group.collapsed .nav-group-links { display: none; }
+
+.nav-link {
+  position: relative;
+  display: block;
+  padding: 9px 28px 9px 28px;
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: var(--t-nav);
+  color: var(--ink-60);
+  transition: color 0.18s var(--ease), background 0.18s var(--ease);
+}
+.nav-link:hover { color: var(--ink); background: var(--line-soft); }
+.nav-link.active {
+  font-weight: 600;
+  color: var(--charcoal);
+  background: var(--amber-soft);
+}
+.nav-link.active::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 6px; bottom: 6px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--amber);
+}
+
+/* ---------- Content area ---------- */
+.content {
+  margin-left: var(--nav-w);
+  flex: 1;
+  padding: 72px 64px 120px;
+}
+.page { max-width: var(--maxw); margin: 0 auto; }
+.page-kicker {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 14px;
+}
+.page-title { margin-bottom: 18px; }
+.page-intro {
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink-60);
+  max-width: 60ch;
+  margin: 0 0 8px;
+}
+
+/* ---------- Reusable doc bits ---------- */
+.section { margin-top: 64px; }
+.section-head { margin-bottom: 28px; }
+.section-head h2 { margin-bottom: 8px; }
+.divider { height: 1px; background: var(--line); border: none; margin: 56px 0 0; }
+
+.card-surface {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+/* ---------- Footer credit ---------- */
+.doc-footer {
+  margin-top: 96px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--ink-40);
+}
+.doc-footer b { color: var(--ink-60); font-weight: 600; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 880px) {
+  :root { --nav-w: 0px; }
+  .sidebar { transform: translateX(-100%); }
+  .content { margin-left: 0; padding: 48px 28px 96px; }
+  :root { --t-h1: 40px; --t-h2: 28px; }
+}
