@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Card — Kasa Figma UIKit</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* ---- shared component-doc bits (matches navbar/footer) ---- */
+    .comp-section { margin-top: 56px; }
+    .comp-section > h3 { margin-bottom: 18px; }
+    .preview-frame {
+      background: #FBF8F2;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 36px;
+    }
+    .preview-caption {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      color: var(--ink-40);
+      margin: 12px 2px 0;
+    }
+    pre.code {
+      margin: 0;
+      background: #20201C;
+      border-radius: 0 0 14px 14px;
+      padding: 22px 24px;
+      overflow-x: auto;
+    }
+    pre.code code {
+      font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+      font-size: 12.5px;
+      line-height: 1.75;
+      white-space: pre;
+      color: #E8E2D6;
+    }
+    pre.code .t { color: #E9901E; }
+    pre.code .a { color: #9DB7C9; }
+    pre.code .s { color: #C9A66B; }
+    pre.code .c { color: #6B6B62; }
+    .code-head {
+      display: flex; align-items: center; gap: 8px;
+      background: #2A2A25;
+      border-radius: 14px 14px 0 0;
+      padding: 12px 18px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: #B7B2A6;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .dot3 { display: flex; gap: 6px; margin-right: 8px; }
+    .dot3 span { width: 10px; height: 10px; border-radius: 50%; }
+
+    ul.usage { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+    ul.usage li {
+      position: relative; padding-left: 30px;
+      font-size: 16px; line-height: 1.55; color: var(--ink);
+    }
+    ul.usage li::before {
+      content: ""; position: absolute; left: 4px; top: 9px;
+      width: 8px; height: 8px; border-radius: 2px; background: var(--amber);
+    }
+    ul.usage li code, .a11y-box code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 13px; background: var(--amber-soft); color: #9a5a00;
+      padding: 1px 6px; border-radius: 5px;
+    }
+    .a11y-box {
+      background: var(--white); border: 1px solid var(--line);
+      border-left: 3px solid var(--forest); border-radius: 14px;
+      padding: 26px 30px; font-size: 16px; line-height: 1.7; color: var(--ink);
+    }
+    .a11y-box .ratios { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .a11y-box .rc {
+      font-family: var(--font-ui); font-size: 13px; font-weight: 600;
+      padding: 8px 14px; border-radius: 8px; white-space: nowrap;
+    }
+
+    /* ============ Menu card component ============ */
+    .card-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 240px));
+      gap: 24px;
+      justify-content: start;
+    }
+    .menu-card {
+      position: relative;
+      background: #FFFFFF;
+      border: 1px solid #E0E0E0;
+      border-radius: 0;            /* sharp corners */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.18s var(--ease), transform 0.18s var(--ease);
+    }
+    .menu-card:hover { border-color: var(--amber); transform: translateY(-2px); }
+    .dish-photo {
+      height: 180px;
+      width: 100%;
+      background:
+        repeating-linear-gradient(45deg, #E4E0D7 0 12px, #DAD5CB 12px 24px);
+      display: grid;
+      place-items: center;
+    }
+    .dish-photo span {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(30,30,26,0.4);
+    }
+    .menu-card .body { padding: 18px 18px 20px; }
+    .menu-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      color: #1E1E1A;
+      margin: 0 0 6px;
+    }
+    .menu-card .desc {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #1E1E1A;
+      margin: 0 0 12px;
+    }
+    .menu-card .price {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 17px;
+      color: #1E1E1A;
+      margin: 0 0 14px;
+    }
+    .menu-card .stretched-link {
+      position: absolute; inset: 0;
+      z-index: 1;
+    }
+    .menu-card:focus-within { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+    /* ---- tag / badge ---- */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.01em;
+      color: #FFFFFF;
+      padding: 5px 14px;
+      border-radius: 100px;
+      position: relative;
+      white-space: nowrap;
+      z-index: 2;            /* sits above stretched-link */
+    }
+    .tag-vegan    { background: #0C3D2E; }
+    .tag-allergen { background: #E9901E; }
+    .tag-gf       { background: #004982; }
+
+    .tag-variants { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .tag-variant-item { display: flex; flex-direction: column; gap: 8px; }
+    .tag-variant-item .vlabel {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      color: var(--ink-40);
+    }
+
+    @media (max-width: 560px) {
+      .card-row { grid-template-columns: minmax(0, 1fr); }
+      .preview-frame { padding: 22px; }
+    }
+  </style>
+</head>
+<body data-page="card">
+  <main class="content">
+    <div class="page">
+
+      <header>
+        <div class="page-kicker">Components</div>
+        <h2 class="page-title">Card</h2>
+        <p class="page-intro">Menu cards display individual dishes with an image, title, description, price, and an optional dietary tag. The entire card surface is clickable.</p>
+      </header>
+
+      <!-- 1. Example -->
+      <section class="comp-section">
+        <h3>Example</h3>
+        <div class="preview-frame">
+          <div class="card-row">
+
+            <!-- Card 1 — Vegan -->
+            <article class="menu-card">
+              <div class="dish-photo"><span>Dish photo</span></div>
+              <div class="body">
+                <h3>Samosa Chaat</h3>
+                <p class="desc">Crispy samosas layered with yogurt, tamarind chutney, and pomegranate</p>
+                <p class="price">$14</p>
+                <span class="tag tag-vegan">Vegan</span>
+                <a href="#" class="stretched-link" aria-label="View Samosa Chaat details"></a>
+              </div>
+            </article>
+
+            <!-- Card 2 — Allergen -->
+            <article class="menu-card">
+              <div class="dish-photo"><span>Dish photo</span></div>
+              <div class="body">
+                <h3>Khao Suey</h3>
+                <p class="desc">Egg noodles in coconut curry, served with an array of fresh condiments</p>
+                <p class="price">$14</p>
+                <span class="tag tag-allergen">Contains nuts</span>
+                <a href="#" class="stretched-link" aria-label="View Khao Suey details"></a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+        <p class="preview-caption">Two menu cards — sharp corners, thin border, no shadow. Hover or focus the card to see the clickable surface.</p>
+      </section>
+
+      <!-- 2. Tag Variants -->
+      <section class="comp-section">
+        <h3>Tag Variants</h3>
+        <div class="preview-frame">
+          <div class="tag-variants">
+            <div class="tag-variant-item">
+              <span class="tag tag-vegan" style="width: 88px; text-align: center">Vegan</span>
+              <span class="vlabel">Forest Green · #0C3D2E</span>
+            </div>
+            <div class="tag-variant-item">
+              <span class="tag tag-allergen">Contains nuts</span>
+              <span class="vlabel">Amber · #E9901E</span>
+            </div>
+            <div class="tag-variant-item">
+              <span class="tag tag-gf">Gluten free</span>
+              <span class="vlabel">Navy · #004982</span>
+            </div>
+          </div>
+        </div>
+        <p class="preview-caption">All three dietary tag styles. White text on each colored pill.</p>
+      </section>
+
+      <!-- 3. Code -->
+      <section class="comp-section">
+        <h3>Code</h3>
+        <div class="code-head">
+          <span class="dot3"><span style="background:#E9901E;"></span><span style="background:#BE1737;"></span><span style="background:#0C3D2E;"></span></span>
+          card.html
+        </div>
+        <pre class="code"><code><span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"col-lg-3 col-md-6 py-2"</span><span class="t">&gt;</span>
+  <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"card h-100 rounded-0 position-relative"</span>
+       <span class="a">style</span>=<span class="s">"background-color: #FFFFFF; border: 1px solid #E0E0E0;"</span><span class="t">&gt;</span>
+    <span class="t">&lt;img</span> <span class="a">src</span>=<span class="s">"../images/dish-placeholder.jpg"</span>
+         <span class="a">class</span>=<span class="s">"card-img-top"</span>
+         <span class="a">alt</span>=<span class="s">"Samosa Chaat — crispy samosas with yogurt and chutney"</span><span class="t">&gt;</span>
+    <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"card-body px-3 pb-3"</span><span class="t">&gt;</span>
+      <span class="t">&lt;h3</span> <span class="a">class</span>=<span class="s">"card-title mb-1"</span>
+          <span class="a">style</span>=<span class="s">"font-family: 'Anek Devanagari', sans-serif;
+                 font-weight: 700; color: #1E1E1A;"</span><span class="t">&gt;</span>
+        Samosa Chaat
+      <span class="t">&lt;/h3&gt;</span>
+      <span class="t">&lt;p</span> <span class="a">class</span>=<span class="s">"card-text mb-2"</span>
+         <span class="a">style</span>=<span class="s">"font-family: 'Anek Devanagari', sans-serif;
+                font-size: 0.875rem; color: #1E1E1A;"</span><span class="t">&gt;</span>
+        Crispy samosas layered with yogurt, tamarind chutney,
+        and pomegranate
+      <span class="t">&lt;/p&gt;</span>
+      <span class="t">&lt;p</span> <span class="a">class</span>=<span class="s">"fw-bold mb-2"</span> <span class="a">style</span>=<span class="s">"color: #1E1E1A;"</span><span class="t">&gt;</span>$14<span class="t">&lt;/p&gt;</span>
+      <span class="t">&lt;span</span> <span class="a">class</span>=<span class="s">"badge rounded-pill px-3 py-1"</span>
+            <span class="a">style</span>=<span class="s">"background-color: #0C3D2E; color: #FFFFFF;
+                   font-family: 'Anek Latin', sans-serif;
+                   font-size: 0.75rem;"</span><span class="t">&gt;</span>
+        Vegan
+      <span class="t">&lt;/span&gt;</span>
+      <span class="t">&lt;a</span> <span class="a">href</span>=<span class="s">"#"</span> <span class="a">class</span>=<span class="s">"stretched-link"</span>
+         <span class="a">aria-label</span>=<span class="s">"View Samosa Chaat details"</span><span class="t">&gt;&lt;/a&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span></code></pre>
+      </section>
+
+      <!-- 4. Usage -->
+      <section class="comp-section">
+        <h3>Usage</h3>
+        <ul class="usage">
+          <li>Every card must include: dish image, title, description, and price.</li>
+          <li>Dietary tags are optional but must use the correct color per tag type: <b>Forest Green</b> for Vegan, <b>Amber</b> for allergen warnings, <b>Navy</b> for Gluten free.</li>
+          <li>The entire card surface must be clickable via <code>stretched-link</code>.</li>
+          <li>Images must include descriptive alt text naming the dish.</li>
+          <li>Cards sit in a 4-column grid on desktop, 2-column on tablet, 1-column on mobile.</li>
+        </ul>
+      </section>
+
+      <!-- 5. Accessibility -->
+      <section class="comp-section">
+        <h3>Accessibility Considerations</h3>
+        <div class="a11y-box">
+          <p style="margin:0;">White text on Forest Green <code>#0C3D2E</code> achieves <b>10.8:1</b> contrast for Vegan tags. White on Amber <code>#E9901E</code> achieves <b>3.1:1</b> — sufficient for the bold pill label at 12px with font-weight 600. White on Navy <code>#004982</code> achieves <b>8.9:1</b>. All dish images must include alt text describing the dish, not just the dish name.</p>
+          <div class="ratios">
+            <span class="rc" style="background:#0C3D2E;color:#FFFFFF;">White on Forest · 10.8:1</span>
+            <span class="rc" style="background:#E9901E;color:#FFFFFF;">White on Amber · 3.1:1</span>
+            <span class="rc" style="background:#004982;color:#FFFFFF;">White on Navy · 8.9:1</span>
+          </div>
+        </div>
+      </section>
+
+      <footer class="doc-footer">
+        <span>Kasa — Figma UIKit · Components</span>
+        <span>Documented by <b>Anusha Prasad</b></span>
+      </footer>
+
+    </div>
+  </main>
+  <script src="../nav.js"></script>
+</body>
+</html>

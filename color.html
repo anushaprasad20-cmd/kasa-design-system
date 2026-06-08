@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color — Kasa Figma UIKit</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+    .swatch-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .swatch-chip {
+      height: 132px;
+      width: 100%;
+      position: relative;
+    }
+    .swatch-chip[data-light="true"] { box-shadow: inset 0 0 0 1px var(--line); }
+    .swatch-body { padding: 22px 24px 24px; }
+    .swatch-body h4 {
+      margin: 0 0 12px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+    }
+    .hex {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+      font-size: 12.5px;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      background: #FBF8F2;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 6px 11px;
+    }
+    .hex .hex-k { color: var(--ink-40); }
+    .uses {
+      margin: 18px 0 0;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--ink-60);
+    }
+    .uses .uses-k {
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      display: block;
+      margin-bottom: 5px;
+    }
+    .uses code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12px;
+      color: var(--navy);
+    }
+
+    .sec-h3 { margin-bottom: 6px; }
+    .sec-note { color: var(--ink-60); margin: 0 0 24px; font-size: 15px; }
+
+    /* Reference table */
+    .token-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .token-table th, .token-table td {
+      text-align: left;
+      padding: 13px 22px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .token-table thead th {
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-60);
+      background: #FBF8F2;
+    }
+    .token-table tbody tr:last-child td { border-bottom: none; }
+    .token-table td.tok {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12.5px;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+    .token-table .swatch-cell { display: flex; align-items: center; gap: 10px; }
+    .dot {
+      width: 18px; height: 18px;
+      border-radius: 5px;
+      flex: none;
+      box-shadow: inset 0 0 0 1px rgba(30,30,26,0.12);
+    }
+    .token-table td.hexcol {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 12.5px;
+      color: var(--ink-60);
+    }
+
+    /* Accessibility */
+    .a11y {
+      margin-top: 26px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 30px 32px;
+    }
+    .a11y h4 { margin: 0 0 8px; font-family: var(--font-display); font-weight: 700; font-size: 22px; }
+    .a11y p.lead { margin: 0 0 18px; color: var(--ink-60); font-size: 15px; }
+    .a11y ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .a11y li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+    }
+    .ratio-chip {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      flex: none;
+      min-width: 150px;
+    }
+    .a11y li .ratio-num { font-variant-numeric: tabular-nums; }
+    .pass { color: var(--forest); font-weight: 600; }
+    .warn { color: #9a5a00; font-weight: 600; }
+    .a11y .avoid {
+      margin: 18px 0 0;
+      padding: 14px 16px;
+      background: rgba(190,23,55,0.07);
+      border: 1px solid rgba(190,23,55,0.2);
+      border-radius: 10px;
+      font-size: 14px;
+      color: var(--crimson);
+    }
+
+    @media (max-width: 880px) {
+      .swatch-grid { grid-template-columns: 1fr; }
+      .a11y li { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body data-page="color">
+  <main class="content">
+    <div class="page">
+
+      <header>
+        <div class="page-kicker">Foundations</div>
+        <h2 class="page-title">Color Palette</h2>
+        <p class="page-intro">Seven colors carry the entire system — warm, earthy, and confident. Each is paired with the semantic roles it plays across the Kasa interface.</p>
+      </header>
+
+      <!-- SECTION 1 — Brand -->
+      <section class="section" style="margin-top:52px;">
+        <div class="section-head">
+          <h3 class="sec-h3">Brand</h3>
+          <p class="sec-note">The signature warmth of Kasa: amber leads, cream grounds.</p>
+        </div>
+        <div class="swatch-grid">
+
+          <div class="swatch-card">
+            <div class="swatch-chip" style="background:#E9901E;"></div>
+            <div class="swatch-body">
+              <h4>Amber</h4>
+              <span class="hex"><span class="hex-k">HEX</span> #E9901E</span>
+              <p class="uses"><span class="uses-k">Uses</span><code>text-brand-primary</code>, <code>surface-brand-primary</code>, logo wordmark, CTA button fill (“Reserve a table”), nav active link, section accent text, price text on menu cards, footer logo.</p>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-chip" data-light="true" style="background:#F5F0E8;"></div>
+            <div class="swatch-body">
+              <h4>Cream</h4>
+              <span class="hex"><span class="hex-k">HEX</span> #F5F0E8</span>
+              <p class="uses"><span class="uses-k">Uses</span><code>surface-primary</code> (main page background), card background on the menu-items section.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 2 — Secondary -->
+      <section class="section">
+        <div class="section-head">
+          <h3 class="sec-h3">Secondary</h3>
+          <p class="sec-note">Grounding depth and contrast for heroes, footers, and key moments.</p>
+        </div>
+        <div class="swatch-grid">
+
+          <div class="swatch-card">
+            <div class="swatch-chip" style="background:#0C3D2E;"></div>
+            <div class="swatch-body">
+              <h4>Forest Green</h4>
+              <span class="hex"><span class="hex-k">HEX</span> #0C3D2E</span>
+              <p class="uses"><span class="uses-k">Uses</span><code>surface-hero</code> (hero background), <code>surface-footer-bottom</code> (bottom footer band), navbar background, “Our story” button fill, <code>surface-inverse</code> for text on light backgrounds.</p>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-chip" style="background:#BE1737;"></div>
+            <div class="swatch-body">
+              <h4>Crimson</h4>
+              <span class="hex"><span class="hex-k">HEX</span> #BE1737</span>
+              <p class="uses"><span class="uses-k">Uses</span><code>surface-brand-secondary</code>, “Find us” section background, <code>surface-cta-band</code> (“Ready to dine with us?” strip).</p>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-chip" style="background:#004982;"></div>
+            <div class="swatch-body">
+              <h4>Navy</h4>
+              <span class="hex"><span class="hex-k">HEX</span> #004982</span>
+              <p class="uses"><span class="uses-k">Uses</span><code>surface-map-placeholder</code> (map block in the Find Us section), <code>surface-accent</code> (secondary interactive elements).</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 3 — Neutral -->
+      <section class="section">
+        <div class="section-head">
+          <h3 class="sec-h3">Neutral</h3>
+          <p class="sec-note">The structural backbone — text, dark surfaces, and clean inverse.</p>
+        </div>
+        <div class="swatch-grid">
+
+          <div class="swatch-card">
+            <div class="swatch-chip" style="background:#1E1E1A;"></div>
+            <div class="swatch-body">
+              <h4>Charcoal</h4>
+              <span class="hex"><span class="hex-k">HEX</span> #1E1E1A</span>
+              <p class="uses"><span class="uses-k">Uses</span><code>text-primary</code> (body text, card titles, prices), navbar background (slightly transparent overlay), <code>surface-footer-base</code> (main footer background).</p>
+            </div>
+          </div>
+
+          <div class="swatch-card">
+            <div class="swatch-chip" data-light="true" style="background:#FFFFFF;"></div>
+            <div class="swatch-body">
+              <h4>White</h4>
+              <span class="hex"><span class="hex-k">HEX</span> #FFFFFF</span>
+              <p class="uses"><span class="uses-k">Uses</span><code>text-inverse</code> (text on dark/colored backgrounds), hero headline text, “Find us” section text, footer body text, nav links on the dark navbar, outlined button (“View menu”) text and border.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION 4 — Semantic Usage Reference -->
+      <section class="section">
+        <div class="section-head">
+          <h3 class="sec-h3">Semantic Usage Reference</h3>
+          <p class="sec-note">How the palette maps to design tokens across the interface.</p>
+        </div>
+
+        <table class="token-table">
+          <thead>
+            <tr><th>Token Name</th><th>Color</th><th>Hex</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="tok">text-primary</td><td><span class="swatch-cell"><span class="dot" style="background:#1E1E1A;"></span>Charcoal</span></td><td class="hexcol">#1E1E1A</td></tr>
+            <tr><td class="tok">text-inverse</td><td><span class="swatch-cell"><span class="dot" style="background:#FFFFFF;"></span>White</span></td><td class="hexcol">#FFFFFF</td></tr>
+            <tr><td class="tok">text-brand</td><td><span class="swatch-cell"><span class="dot" style="background:#E9901E;"></span>Amber</span></td><td class="hexcol">#E9901E</td></tr>
+            <tr><td class="tok">surface-primary</td><td><span class="swatch-cell"><span class="dot" style="background:#F5F0E8;"></span>Cream</span></td><td class="hexcol">#F5F0E8</td></tr>
+            <tr><td class="tok">surface-hero</td><td><span class="swatch-cell"><span class="dot" style="background:#0C3D2E;"></span>Forest Green</span></td><td class="hexcol">#0C3D2E</td></tr>
+            <tr><td class="tok">surface-section-alt</td><td><span class="swatch-cell"><span class="dot" style="background:#E9901E;"></span>Amber</span></td><td class="hexcol">#E9901E</td></tr>
+            <tr><td class="tok">surface-cta</td><td><span class="swatch-cell"><span class="dot" style="background:#BE1737;"></span>Crimson</span></td><td class="hexcol">#BE1737</td></tr>
+            <tr><td class="tok">surface-footer</td><td><span class="swatch-cell"><span class="dot" style="background:#1E1E1A;"></span>Charcoal</span></td><td class="hexcol">#1E1E1A</td></tr>
+            <tr><td class="tok">surface-footer-band</td><td><span class="swatch-cell"><span class="dot" style="background:#0C3D2E;"></span>Forest Green</span></td><td class="hexcol">#0C3D2E</td></tr>
+            <tr><td class="tok">surface-map</td><td><span class="swatch-cell"><span class="dot" style="background:#004982;"></span>Navy</span></td><td class="hexcol">#004982</td></tr>
+            <tr><td class="tok">btn-primary-fill</td><td><span class="swatch-cell"><span class="dot" style="background:#E9901E;"></span>Amber</span></td><td class="hexcol">#E9901E</td></tr>
+            <tr><td class="tok">btn-primary-text</td><td><span class="swatch-cell"><span class="dot" style="background:#FFFFFF;"></span>White</span></td><td class="hexcol">#FFFFFF</td></tr>
+            <tr><td class="tok">btn-secondary-fill</td><td><span class="swatch-cell"><span class="dot" style="background:#0C3D2E;"></span>Forest Green</span></td><td class="hexcol">#0C3D2E</td></tr>
+            <tr><td class="tok">btn-secondary-text</td><td><span class="swatch-cell"><span class="dot" style="background:#FFFFFF;"></span>White</span></td><td class="hexcol">#FFFFFF</td></tr>
+            <tr><td class="tok">btn-outline-border</td><td><span class="swatch-cell"><span class="dot" style="background:#FFFFFF;"></span>White</span></td><td class="hexcol">#FFFFFF</td></tr>
+            <tr><td class="tok">btn-outline-text</td><td><span class="swatch-cell"><span class="dot" style="background:#FFFFFF;"></span>White</span></td><td class="hexcol">#FFFFFF</td></tr>
+            <tr><td class="tok">tag-vegan</td><td><span class="swatch-cell"><span class="dot" style="background:#0C3D2E;"></span>Forest Green</span></td><td class="hexcol">#0C3D2E</td></tr>
+            <tr><td class="tok">tag-allergen</td><td><span class="swatch-cell"><span class="dot" style="background:#E9901E;"></span>Amber</span></td><td class="hexcol">#E9901E</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Accessibility -->
+        <div class="a11y">
+          <h4>Contrast Compliance</h4>
+          <p class="lead">All text-on-background combinations in this palette meet WCAG AA contrast requirements:</p>
+          <ul>
+            <li><span class="ratio-chip" style="background:#0C3D2E;color:#fff;">White on Forest</span><span class="ratio-num">10.8:1</span><span class="pass">✓ Pass</span></li>
+            <li><span class="ratio-chip" style="background:#BE1737;color:#fff;">White on Crimson</span><span class="ratio-num">5.1:1</span><span class="pass">✓ Pass</span></li>
+            <li><span class="ratio-chip" style="background:#1E1E1A;color:#fff;">White on Charcoal</span><span class="ratio-num">16.1:1</span><span class="pass">✓ Pass</span></li>
+            <li><span class="ratio-chip" style="background:#F5F0E8;color:#1E1E1A;box-shadow:inset 0 0 0 1px var(--line);">Charcoal on Cream</span><span class="ratio-num">14.2:1</span><span class="pass">✓ Pass</span></li>
+            <li><span class="ratio-chip" style="background:#E9901E;color:#1E1E1A;">Charcoal on Amber</span><span class="ratio-num">3.1:1</span><span class="warn">— Large text / headings only</span></li>
+          </ul>
+          <p class="avoid"><b>Avoid</b> placing small body text in Charcoal directly on Amber.</p>
+        </div>
+      </section>
+
+      <footer class="doc-footer">
+        <span>Kasa — Figma UIKit · Foundations</span>
+        <span>Documented by <b>Anusha Prasad</b></span>
+      </footer>
+
+    </div>
+  </main>
+  <script src="../nav.js"></script>
+</body>
+</html>

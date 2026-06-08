@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typography — Kasa Figma UIKit</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .page-sub { margin-top: 14px; }
+    .page-sub h3 { font-size: 28px; }
+    .page-sub h3 .amp { color: var(--ink-40); font-weight: 400; }
+
+    /* Font pairing showcase */
+    .font-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 40px;
+    }
+    .font-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 30px 32px 28px;
+    }
+    .font-card .glyph {
+      font-size: 92px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+    }
+    .font-card .fc-name { font-family: var(--font-ui); font-weight: 600; font-size: 18px; }
+    .font-card .fc-role {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      color: var(--ink-60);
+      margin-top: 4px;
+    }
+    .font-card .fc-weights {
+      margin-top: 16px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--ink-40);
+    }
+
+    /* Type specimen rows */
+    .specimens { margin-top: 8px; }
+    .type-row {
+      display: grid;
+      grid-template-columns: 1fr 332px;
+      gap: 48px;
+      align-items: start;
+      padding: 38px 0 34px;
+    }
+    .type-row > * { min-width: 0; }
+    .type-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .type-name {
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+    }
+    .font-tag {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 3px 9px;
+      border-radius: 100px;
+      white-space: nowrap;
+      flex: none;
+    }
+    .tag-dev   { color: #9a5a00; background: rgba(233,144,30,0.16); }
+    .tag-latin { color: var(--navy); background: rgba(0,73,130,0.12); }
+
+    .type-sample { color: var(--charcoal); }
+    .type-sample .nav-demo { display: flex; gap: 26px; align-items: baseline; }
+    .type-sample .nav-item { color: var(--ink-60); }
+    .type-sample .nav-item.active { color: var(--amber); font-weight: 600; }
+
+    /* Code block */
+    pre.code {
+      margin: 0;
+      background: #FBF8F2;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px 20px;
+      overflow-x: auto;
+    }
+    pre.code code {
+      font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      white-space: pre;
+      color: var(--ink);
+    }
+    pre.code .k { color: var(--navy); }
+    pre.code .v { color: var(--crimson); }
+    pre.code .c { color: var(--ink-40); }
+
+    hr.thin { margin: 0; }
+
+    @media (max-width: 1080px) {
+      .type-row { grid-template-columns: 1fr; gap: 20px; }
+    }
+    @media (max-width: 880px) {
+      .font-pair { grid-template-columns: 1fr; }
+      .type-row { grid-template-columns: 1fr; gap: 22px; }
+    }
+  </style>
+</head>
+<body data-page="typography">
+  <main class="content">
+    <div class="page">
+
+      <header>
+        <div class="page-kicker">Foundations</div>
+        <h2 class="page-title">Typography</h2>
+        <div class="page-sub">
+          <h3>Anek Devanagari <span class="amp">&amp;</span> Anek Latin</h3>
+        </div>
+        <p class="page-intro" style="margin-top:18px;">A pairing of two Google typefaces. Anek Devanagari carries the display and body voice; Anek Latin handles the interface like labels and navigation. Together they keep headlines warm and the UI crisp.</p>
+
+        <div class="font-pair">
+          <div class="font-card">
+            <div class="glyph" style="font-family:var(--font-display);">Aa</div>
+            <div class="fc-name">Anek Devanagari</div>
+            <div class="fc-role">Display &amp; body — H1, H2, H3, body text</div>
+            <div class="fc-weights">Regular 400 · Bold 700</div>
+          </div>
+          <div class="font-card">
+            <div class="glyph" style="font-family:var(--font-ui);">Aa</div>
+            <div class="fc-name">Anek Latin</div>
+            <div class="fc-role">Interface — labels &amp; navigation</div>
+            <div class="fc-weights">Regular 400 · Medium 500 · SemiBold 600</div>
+          </div>
+        </div>
+      </header>
+
+      <section class="section specimens" style="margin-top:48px;">
+
+        <!-- 1. H1 -->
+        <hr class="divider" style="margin:0;" />
+        <div class="type-row">
+          <div>
+            <div class="type-meta"><span class="type-name">H1</span><span class="font-tag tag-dev">Anek Devanagari</span></div>
+            <div class="type-sample" style="font-family:var(--font-display);font-size:56px;font-weight:700;letter-spacing:-0.02em;">Heading 1</div>
+          </div>
+          <pre class="code"><code><span class="k">font-family</span>: <span class="v">'Anek Devanagari', sans-serif</span>;
+<span class="k">font-size</span>: <span class="v">56px</span>;
+<span class="k">font-weight</span>: <span class="v">700</span>;
+<span class="c">/* line-height: auto */</span></code></pre>
+        </div>
+
+        <!-- 2. H2 -->
+        <hr class="divider thin" />
+        <div class="type-row">
+          <div>
+            <div class="type-meta"><span class="type-name">H2</span><span class="font-tag tag-dev">Anek Devanagari</span></div>
+            <div class="type-sample" style="font-family:var(--font-display);font-size:36px;font-weight:700;letter-spacing:-0.01em;">Heading 2</div>
+          </div>
+          <pre class="code"><code><span class="k">font-family</span>: <span class="v">'Anek Devanagari', sans-serif</span>;
+<span class="k">font-size</span>: <span class="v">36px</span>;
+<span class="k">font-weight</span>: <span class="v">700</span>;
+<span class="c">/* line-height: auto */</span></code></pre>
+        </div>
+
+        <!-- 3. H3 -->
+        <hr class="divider thin" />
+        <div class="type-row">
+          <div>
+            <div class="type-meta"><span class="type-name">H3</span><span class="font-tag tag-dev">Anek Devanagari</span></div>
+            <div class="type-sample" style="font-family:var(--font-display);font-size:24px;font-weight:700;">Heading 3</div>
+          </div>
+          <pre class="code"><code><span class="k">font-family</span>: <span class="v">'Anek Devanagari', sans-serif</span>;
+<span class="k">font-size</span>: <span class="v">24px</span>;
+<span class="k">font-weight</span>: <span class="v">700</span>;
+<span class="c">/* line-height: auto */</span></code></pre>
+        </div>
+
+        <!-- 4. Body Regular -->
+        <hr class="divider thin" />
+        <div class="type-row">
+          <div>
+            <div class="type-meta"><span class="type-name">Body Regular</span><span class="font-tag tag-dev">Anek Devanagari</span></div>
+            <div class="type-sample" style="font-family:var(--font-display);font-size:16px;font-weight:400;">The quick brown fox jumps over the lazy dog.</div>
+          </div>
+          <pre class="code"><code><span class="k">font-family</span>: <span class="v">'Anek Devanagari', sans-serif</span>;
+<span class="k">font-size</span>: <span class="v">16px</span>;
+<span class="k">font-weight</span>: <span class="v">400</span>;
+<span class="c">/* line-height: auto */</span></code></pre>
+        </div>
+
+        <!-- 5. Body Small -->
+        <hr class="divider thin" />
+        <div class="type-row">
+          <div>
+            <div class="type-meta"><span class="type-name">Body Small</span><span class="font-tag tag-dev">Anek Devanagari</span></div>
+            <div class="type-sample" style="font-family:var(--font-display);font-size:14px;font-weight:400;">The quick brown fox jumps over the lazy dog.</div>
+          </div>
+          <pre class="code"><code><span class="k">font-family</span>: <span class="v">'Anek Devanagari', sans-serif</span>;
+<span class="k">font-size</span>: <span class="v">14px</span>;
+<span class="k">font-weight</span>: <span class="v">400</span>;
+<span class="c">/* line-height: auto */</span></code></pre>
+        </div>
+
+        <!-- 6. Label -->
+        <hr class="divider thin" />
+        <div class="type-row">
+          <div>
+            <div class="type-meta"><span class="type-name">Label</span><span class="font-tag tag-latin">Anek Latin</span></div>
+            <div class="type-sample" style="font-family:var(--font-ui);font-size:12px;font-weight:500;">Label text</div>
+          </div>
+          <pre class="code"><code><span class="k">font-family</span>: <span class="v">'Anek Latin', sans-serif</span>;
+<span class="k">font-size</span>: <span class="v">12px</span>;
+<span class="k">font-weight</span>: <span class="v">500</span>;
+<span class="c">/* line-height: auto */</span></code></pre>
+        </div>
+
+        <!-- 7. Nav Text -->
+        <hr class="divider thin" />
+        <div class="type-row">
+          <div>
+            <div class="type-meta"><span class="type-name">Nav Text</span><span class="font-tag tag-latin">Anek Latin</span></div>
+            <div class="type-sample" style="font-family:var(--font-ui);font-size:16px;font-weight:400;">
+              <span class="nav-demo">
+                <span class="nav-item">Home</span><span class="nav-item">About</span><span class="nav-item">Resume</span>
+              </span>
+            </div>
+          </div>
+          <pre class="code"><code><span class="k">font-family</span>: <span class="v">'Anek Latin', sans-serif</span>;
+<span class="k">font-size</span>: <span class="v">16px</span>;
+<span class="k">font-weight</span>: <span class="v">400</span>;
+<span class="c">/* line-height: auto */</span></code></pre>
+        </div>
+
+        <!-- 8. Nav Text Highlighted -->
+        <hr class="divider thin" />
+        <div class="type-row">
+          <div>
+            <div class="type-meta"><span class="type-name">Nav Text Highlighted</span><span class="font-tag tag-latin">Anek Latin</span></div>
+            <div class="type-sample" style="font-family:var(--font-ui);font-size:16px;">
+              <span class="nav-demo">
+                <span class="nav-item active">Home</span><span class="nav-item">About</span><span class="nav-item">Resume</span>
+              </span>
+            </div>
+          </div>
+          <pre class="code"><code><span class="k">font-family</span>: <span class="v">'Anek Latin', sans-serif</span>;
+<span class="k">font-size</span>: <span class="v">16px</span>;
+<span class="k">font-weight</span>: <span class="v">600</span>; <span class="c">/* SemiBold */</span>
+<span class="c">/* line-height: auto */</span></code></pre>
+        </div>
+
+        <hr class="divider thin" />
+      </section>
+
+      <footer class="doc-footer">
+        <span>Kasa — Figma UIKit · Foundations</span>
+        <span>Documented by <b>Anusha Prasad</b></span>
+      </footer>
+
+    </div>
+  </main>
+  <script src="../nav.js"></script>
+</body>
+</html>

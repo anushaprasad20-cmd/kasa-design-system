@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Footer — Kasa Figma UIKit</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* ---- shared component-doc bits (matches navbar.html) ---- */
+    .comp-section { margin-top: 56px; }
+    .comp-section > h3 { margin-bottom: 18px; }
+    .preview-frame {
+      background: #FBF8F2;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .preview-caption {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      color: var(--ink-40);
+      margin: 12px 2px 0;
+    }
+    pre.code {
+      margin: 0;
+      background: #20201C;
+      border-radius: 0 0 14px 14px;
+      padding: 22px 24px;
+      overflow-x: auto;
+    }
+    pre.code code {
+      font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+      font-size: 12.5px;
+      line-height: 1.75;
+      white-space: pre;
+      color: #E8E2D6;
+    }
+    pre.code .t { color: #E9901E; }
+    pre.code .a { color: #9DB7C9; }
+    pre.code .s { color: #C9A66B; }
+    pre.code .c { color: #6B6B62; }
+    .code-head {
+      display: flex; align-items: center; gap: 8px;
+      background: #2A2A25;
+      border-radius: 14px 14px 0 0;
+      padding: 12px 18px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: #B7B2A6;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .dot3 { display: flex; gap: 6px; margin-right: 8px; }
+    .dot3 span { width: 10px; height: 10px; border-radius: 50%; }
+
+    ul.usage { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+    ul.usage li {
+      position: relative; padding-left: 30px;
+      font-size: 16px; line-height: 1.55; color: var(--ink);
+    }
+    ul.usage li::before {
+      content: ""; position: absolute; left: 4px; top: 9px;
+      width: 8px; height: 8px; border-radius: 2px; background: var(--amber);
+    }
+    ul.usage li code, .a11y-box code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 13px; background: var(--amber-soft); color: #9a5a00;
+      padding: 1px 6px; border-radius: 5px;
+    }
+    .a11y-box {
+      background: var(--white); border: 1px solid var(--line);
+      border-left: 3px solid var(--forest); border-radius: 14px;
+      padding: 26px 30px; font-size: 16px; line-height: 1.7; color: var(--ink);
+    }
+    .a11y-box .ratios { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .a11y-box .rc {
+      font-family: var(--font-ui); font-size: 13px; font-weight: 600;
+      padding: 8px 14px; border-radius: 8px; white-space: nowrap;
+    }
+
+    /* ============ Live footer demo ============ */
+    .demo-footer { width: 100%; }
+    .ft-main {
+      background: #1E1E1A;
+      padding: 40px 34px;
+    }
+    .ft-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.85fr 0.95fr 1.15fr;
+      gap: 28px;
+    }
+    .ft-grid > div { min-width: 0; }
+    .ft-brand-mark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 0.02em;
+      color: #E9901E;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+    .ft-meta { color: #FFFFFF; font-size: 14px; line-height: 1.5; opacity: 0.85; margin: 0; }
+    .ft-social { display: flex; gap: 10px; margin-top: 22px; }
+    .ft-social a {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: #2E2E29;
+      display: grid; place-items: center;
+      color: #E8E2D6;
+      transition: background 0.18s var(--ease), color 0.18s var(--ease);
+    }
+    .ft-social a:hover { background: #E9901E; color: #1E1E1A; }
+    .ft-social svg { width: 17px; height: 17px; display: block; }
+
+    .ft-col-label {
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #AFAFAF;
+      margin: 0 0 18px;
+    }
+    .ft-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+    .ft-links a {
+      font-family: var(--font-ui);
+      font-size: 14px;
+      color: #FFFFFF;
+      text-decoration: none;
+      transition: color 0.16s var(--ease);
+    }
+    .ft-links a:hover { color: #E9901E; }
+    .ft-contact { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+    .ft-contact li { font-family: var(--font-ui); font-size: 13.5px; color: #FFFFFF; line-height: 1.4; }
+    .ft-contact a { color: #FFFFFF; text-decoration: none; }
+    .ft-contact a:hover { color: #E9901E; }
+
+    .ft-bottom {
+      background: #0C3D2E;
+      padding: 14px 44px;
+    }
+    .ft-bottom p {
+      margin: 0;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      color: #FFFFFF;
+      opacity: 0.9;
+    }
+    .band-tag {
+      display: inline-block;
+      margin-bottom: 22px;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.42);
+    }
+    .ft-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .ft-bottom .band-tag { margin-bottom: 0; }
+
+    @media (max-width: 760px) {
+      .ft-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 480px) {
+      .ft-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-page="footer">
+  <main class="content">
+    <div class="page">
+
+      <header>
+        <div class="page-kicker">Components</div>
+        <h2 class="page-title">Footer</h2>
+        <p class="page-intro">The footer provides navigation, contact information, and brand identity at the bottom of every page. It has two distinct visual bands.</p>
+      </header>
+
+      <!-- 1. Example -->
+      <section class="comp-section">
+        <h3>Example</h3>
+        <div class="preview-frame">
+          <footer class="demo-footer">
+            <div class="ft-main">
+              <span class="band-tag">Charcoal #1E1E1A</span>
+              <div class="ft-grid">
+
+                <!-- Brand -->
+                <div>
+                  <a class="ft-brand-mark" href="index.html">KASA</a>
+                  <p class="ft-meta">Restaurant est. 2026<br />Chicago, IL</p>
+                  <div class="ft-social">
+                    <a href="#" aria-label="Facebook">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H17V3.6c-.3 0-1.3-.1-2.45-.1-2.42 0-4.05 1.48-4.05 4.2v2.2H7.7V13h2.8v8h3z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none"/></svg>
+                    </a>
+                    <a href="#" aria-label="X">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.2 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.3 21H1l7.7-8.8L2 3h6.8l4.7 6.2L17.2 3zm-1.16 16h1.83L8.04 4.9H6.1L16.04 19z"/></svg>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Explore -->
+                <div>
+                  <p class="ft-col-label">Explore</p>
+                  <ul class="ft-links">
+                    <li><a href="#">Menu</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Press</a></li>
+                  </ul>
+                </div>
+
+                <!-- Visit -->
+                <div>
+                  <p class="ft-col-label">Visit</p>
+                  <ul class="ft-links">
+                    <li><a href="#">Hours</a></li>
+                    <li><a href="#">Reservations</a></li>
+                    <li><a href="#">Find us</a></li>
+                  </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                  <p class="ft-col-label">Contact</p>
+                  <ul class="ft-contact">
+                    <li><a href="mailto:hello@kasa.com">hello@kasa.com</a></li>
+                    <li><a href="tel:+13121234567">+1 312 123 4567</a></li>
+                    <li>1 S Some St</li>
+                    <li>Chicago, IL</li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+            <div class="ft-bottom">
+              <span class="band-tag">Forest #0C3D2E</span>
+              <p>© 2026 Kasa Restaurant. All rights reserved.</p>
+            </div>
+          </footer>
+        </div>
+        <p class="preview-caption">Two bands — a Charcoal main footer over a Forest-Green copyright strip.</p>
+      </section>
+
+      <!-- 2. Code -->
+      <section class="comp-section">
+        <h3>Code</h3>
+        <div class="code-head">
+          <span class="dot3"><span style="background:#E9901E;"></span><span style="background:#BE1737;"></span><span style="background:#0C3D2E;"></span></span>
+          footer.html
+        </div>
+        <pre class="code"><code><span class="t">&lt;footer&gt;</span>
+  <span class="c">&lt;!-- Main footer band --&gt;</span>
+  <span class="t">&lt;div</span> <span class="a">style</span>=<span class="s">"background-color: #1E1E1A; padding: 3rem 2rem;"</span><span class="t">&gt;</span>
+    <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"container"</span><span class="t">&gt;</span>
+      <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"row g-4"</span><span class="t">&gt;</span>
+        <span class="c">&lt;!-- Brand column --&gt;</span>
+        <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"col-lg-3 col-md-6"</span><span class="t">&gt;</span>
+          <span class="t">&lt;p</span> <span class="a">class</span>=<span class="s">"fw-bold mb-1"</span> <span class="a">style</span>=<span class="s">"color: #E9901E; font-family: 'Anek Devanagari', sans-serif; font-size: 1.5rem;"</span><span class="t">&gt;</span>KASA<span class="t">&lt;/p&gt;</span>
+          <span class="t">&lt;p</span> <span class="a">class</span>=<span class="s">"mb-0"</span> <span class="a">style</span>=<span class="s">"color: #FFFFFF; font-size: 0.875rem;"</span><span class="t">&gt;</span>Restaurant est. 2026<span class="t">&lt;/p&gt;</span>
+          <span class="t">&lt;p</span> <span class="a">style</span>=<span class="s">"color: #FFFFFF; font-size: 0.875rem;"</span><span class="t">&gt;</span>Chicago, IL<span class="t">&lt;/p&gt;</span>
+          <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"d-flex gap-2 mt-3"</span><span class="t">&gt;</span>
+            <span class="t">&lt;a</span> <span class="a">href</span>=<span class="s">"#"</span> <span class="a">class</span>=<span class="s">"social-icon"</span> <span class="a">aria-label</span>=<span class="s">"Facebook"</span><span class="t">&gt;&lt;/a&gt;</span>
+            <span class="t">&lt;a</span> <span class="a">href</span>=<span class="s">"#"</span> <span class="a">class</span>=<span class="s">"social-icon"</span> <span class="a">aria-label</span>=<span class="s">"Instagram"</span><span class="t">&gt;&lt;/a&gt;</span>
+            <span class="t">&lt;a</span> <span class="a">href</span>=<span class="s">"#"</span> <span class="a">class</span>=<span class="s">"social-icon"</span> <span class="a">aria-label</span>=<span class="s">"X"</span><span class="t">&gt;&lt;/a&gt;</span>
+          <span class="t">&lt;/div&gt;</span>
+        <span class="t">&lt;/div&gt;</span>
+        <span class="c">&lt;!-- Explore column --&gt;</span>
+        <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"col-lg-3 col-md-6"</span><span class="t">&gt;</span>
+          <span class="t">&lt;p</span> <span class="a">class</span>=<span class="s">"text-uppercase mb-3"</span> <span class="a">style</span>=<span class="s">"color: #AFAFAF; font-family: 'Anek Latin', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em;"</span><span class="t">&gt;</span>Explore<span class="t">&lt;/p&gt;</span>
+          <span class="t">&lt;ul</span> <span class="a">class</span>=<span class="s">"list-unstyled"</span><span class="t">&gt;</span>
+            <span class="t">&lt;li&gt;&lt;a</span> <span class="a">href</span>=<span class="s">"#"</span> <span class="a">style</span>=<span class="s">"color: #FFFFFF; text-decoration: none;"</span><span class="t">&gt;</span>Menu<span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="t">&lt;li&gt;&lt;a</span> <span class="a">href</span>=<span class="s">"#"</span> <span class="a">style</span>=<span class="s">"color: #FFFFFF; text-decoration: none;"</span><span class="t">&gt;</span>About<span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="t">&lt;li&gt;&lt;a</span> <span class="a">href</span>=<span class="s">"#"</span> <span class="a">style</span>=<span class="s">"color: #FFFFFF; text-decoration: none;"</span><span class="t">&gt;</span>Press<span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+          <span class="t">&lt;/ul&gt;</span>
+        <span class="t">&lt;/div&gt;</span>
+        <span class="c">&lt;!-- Visit column --&gt;</span>
+        <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"col-lg-3 col-md-6"</span><span class="t">&gt;</span>
+          <span class="t">&lt;p</span> <span class="a">class</span>=<span class="s">"text-uppercase mb-3"</span> <span class="a">style</span>=<span class="s">"color: #AFAFAF; font-family: 'Anek Latin', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em;"</span><span class="t">&gt;</span>Visit<span class="t">&lt;/p&gt;</span>
+          <span class="t">&lt;ul</span> <span class="a">class</span>=<span class="s">"list-unstyled"</span><span class="t">&gt;</span>
+            <span class="t">&lt;li&gt;&lt;a</span> <span class="a">href</span>=<span class="s">"#"</span> <span class="a">style</span>=<span class="s">"color: #FFFFFF; text-decoration: none;"</span><span class="t">&gt;</span>Hours<span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="t">&lt;li&gt;&lt;a</span> <span class="a">href</span>=<span class="s">"#"</span> <span class="a">style</span>=<span class="s">"color: #FFFFFF; text-decoration: none;"</span><span class="t">&gt;</span>Reservations<span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="t">&lt;li&gt;&lt;a</span> <span class="a">href</span>=<span class="s">"#"</span> <span class="a">style</span>=<span class="s">"color: #FFFFFF; text-decoration: none;"</span><span class="t">&gt;</span>Find us<span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+          <span class="t">&lt;/ul&gt;</span>
+        <span class="t">&lt;/div&gt;</span>
+        <span class="c">&lt;!-- Contact column --&gt;</span>
+        <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"col-lg-3 col-md-6"</span><span class="t">&gt;</span>
+          <span class="t">&lt;p</span> <span class="a">class</span>=<span class="s">"text-uppercase mb-3"</span> <span class="a">style</span>=<span class="s">"color: #AFAFAF; font-family: 'Anek Latin', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em;"</span><span class="t">&gt;</span>Contact<span class="t">&lt;/p&gt;</span>
+          <span class="t">&lt;ul</span> <span class="a">class</span>=<span class="s">"list-unstyled"</span> <span class="a">style</span>=<span class="s">"color: #FFFFFF;"</span><span class="t">&gt;</span>
+            <span class="t">&lt;li&gt;</span>hello@kasa.com<span class="t">&lt;/li&gt;</span>
+            <span class="t">&lt;li&gt;</span>+1 312 123 4567<span class="t">&lt;/li&gt;</span>
+            <span class="t">&lt;li&gt;</span>1 S Some St<span class="t">&lt;/li&gt;</span>
+            <span class="t">&lt;li&gt;</span>Chicago, IL<span class="t">&lt;/li&gt;</span>
+          <span class="t">&lt;/ul&gt;</span>
+        <span class="t">&lt;/div&gt;</span>
+      <span class="t">&lt;/div&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- Bottom strip --&gt;</span>
+  <span class="t">&lt;div</span> <span class="a">style</span>=<span class="s">"background-color: #0C3D2E; padding: 0.75rem 2rem;"</span><span class="t">&gt;</span>
+    <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"container"</span><span class="t">&gt;</span>
+      <span class="t">&lt;p</span> <span class="a">class</span>=<span class="s">"mb-0"</span> <span class="a">style</span>=<span class="s">"color: #FFFFFF; font-size: 0.75rem;"</span><span class="t">&gt;</span>2026 Kasa Restaurant. All rights reserved.<span class="t">&lt;/p&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/footer&gt;</span></code></pre>
+      </section>
+
+      <!-- 3. Usage -->
+      <section class="comp-section">
+        <h3>Usage</h3>
+        <ul class="usage">
+          <li>The footer must appear at the bottom of every page.</li>
+          <li>The two-band structure must be preserved: Charcoal main band, Forest Green copyright strip.</li>
+          <li>Column headers (Explore, Visit, Contact) use <b>Label</b> style — uppercase, muted, small tracking.</li>
+          <li>The <b>KASA</b> wordmark in the footer must link to the homepage.</li>
+          <li>Social icons must include <code>aria-label</code> attributes for screen readers.</li>
+          <li>Footer links should have a visible hover state — Amber <code>#E9901E</code> on hover.</li>
+        </ul>
+      </section>
+
+      <!-- 4. Accessibility -->
+      <section class="comp-section">
+        <h3>Accessibility Considerations</h3>
+        <div class="a11y-box">
+          <p style="margin:0;">All footer text uses White <code>#FFFFFF</code> on Charcoal <code>#1E1E1A</code>, achieving <b>16.1:1</b> contrast. The copyright strip uses White on Forest Green <code>#0C3D2E</code> at <b>10.8:1</b>. Both exceed WCAG AA and AAA requirements. Social icon links must have descriptive <code>aria-label</code> attributes since they contain no visible text.</p>
+          <div class="ratios">
+            <span class="rc" style="background:#1E1E1A;color:#FFFFFF;">White on Charcoal · 16.1:1</span>
+            <span class="rc" style="background:#0C3D2E;color:#FFFFFF;">White on Forest · 10.8:1</span>
+          </div>
+        </div>
+      </section>
+
+      <footer class="doc-footer">
+        <span>Kasa — Figma UIKit · Components</span>
+        <span>Documented by <b>Anusha Prasad</b></span>
+      </footer>
+
+    </div>
+  </main>
+  <script src="../nav.js"></script>
+</body>
+</html>

@@ -1,81 +1,49 @@
-/* ============================================================
-   Kasa — Shared sidebar navigation injector
-   Usage: set <body data-page="typography"> then include
-   <script src="nav.js"></script> just before </body>.
-   ============================================================ */
+/* nav.js — injects the shared sidebar nav into every page */
 (function () {
-  var NAV = [
-    {
-      title: 'Foundations',
-      links: [
-        { id: 'typography', label: 'Typography', href: 'typography.html' },
-        { id: 'color',      label: 'Color',      href: 'color.html' },
-        { id: 'logo',       label: 'Logo',       href: 'logo.html' }
-      ]
-    },
-    {
-      title: 'Components',
-      links: [
-        { id: 'navbar', label: 'Navbar', href: 'navbar.html' },
-        { id: 'footer', label: 'Footer', href: 'footer.html' },
-        { id: 'card',   label: 'Card',   href: 'card.html' }
-      ]
-    },
-    {
-      title: 'Page Patterns',
-      links: [
-        { id: 'homepage', label: 'Homepage', href: 'homepage.html' },
-        { id: 'project',  label: 'Project',  href: 'project.html' }
-      ]
-    }
-  ];
+  // Detect depth: are we in a subfolder?
+  var path = window.location.pathname;
+  var inSubfolder = /\/(foundation|components|patterns)\//.test(path);
+  var root = inSubfolder ? '../' : './';
 
-  var active = document.body.getAttribute('data-page') || '';
-  var hasActiveAnywhere = NAV.some(function (g) {
-    return g.links.some(function (l) { return l.id === active; });
-  });
+  var page = document.body.getAttribute('data-page') || '';
 
-  function el(tag, cls, html) {
-    var n = document.createElement(tag);
-    if (cls) n.className = cls;
-    if (html != null) n.innerHTML = html;
-    return n;
-  }
+  var navHTML = `
+    <aside class="doc-sidebar">
+      <div class="sidebar-logo">
+        <a href="${root}index.html">KASA</a>
+        <div class="tagline">Figma UIKit Design System</div>
+      </div>
+      <nav class="sidebar-nav" aria-label="Documentation navigation">
 
-  var aside = el('aside', 'sidebar');
+        <div class="nav-group">
+          <span class="nav-group-label">Foundations</span>
+          <ul class="nav-group-links">
+            <li><a href="${root}foundation/type.html" class="${page === 'typography' ? 'active' : ''}">Typography</a></li>
+            <li><a href="${root}foundation/color.html" class="${page === 'color' ? 'active' : ''}">Color</a></li>
+            <li><a href="${root}foundation/logo.html" class="${page === 'logo' ? 'active' : ''}">Logo</a></li>
+          </ul>
+        </div>
 
-  // Logo
-  var logo = el('a', 'nav-logo');
-  logo.href = 'index.html';
-  logo.innerHTML =
-    '<img class="nav-logo-img" src="assets/wordmark.svg" alt="Kasa" />' +
-    '<span class="nav-logo-sub">Figma UIKit</span>';
-  aside.appendChild(logo);
+        <div class="nav-group">
+          <span class="nav-group-label">Components</span>
+          <ul class="nav-group-links">
+            <li><a href="${root}components/navbar.html" class="${page === 'navbar' ? 'active' : ''}">Navbar</a></li>
+            <li><a href="${root}components/footer.html" class="${page === 'footer' ? 'active' : ''}">Footer</a></li>
+            <li><a href="${root}components/card.html" class="${page === 'card' ? 'active' : ''}">Card</a></li>
+          </ul>
+        </div>
 
-  var sections = el('nav', 'nav-sections');
+        <div class="nav-group">
+          <span class="nav-group-label">Page Patterns</span>
+          <ul class="nav-group-links">
+            <li><a href="${root}patterns/home-pattern.html" class="${page === 'homepage' ? 'active' : ''}">Homepage</a></li>
+            <li><a href="${root}patterns/project-pattern.html" class="${page === 'project' ? 'active' : ''}">Project</a></li>
+          </ul>
+        </div>
 
-  NAV.forEach(function (group) {
-    var hasActive = group.links.some(function (l) { return l.id === active; });
+      </nav>
+    </aside>
+  `;
 
-    var g = el('div', 'nav-group' + (hasActive || !hasActiveAnywhere ? '' : ' collapsed'));
-
-    var head = el('button', 'nav-group-head');
-    head.type = 'button';
-    head.innerHTML = '<span>' + group.title + '</span><span class="nav-chev"></span>';
-    head.addEventListener('click', function () { g.classList.toggle('collapsed'); });
-    g.appendChild(head);
-
-    var links = el('div', 'nav-group-links');
-    group.links.forEach(function (l) {
-      var a = el('a', 'nav-link' + (l.id === active ? ' active' : ''));
-      a.href = l.href;
-      a.textContent = l.label;
-      links.appendChild(a);
-    });
-    g.appendChild(links);
-    sections.appendChild(g);
-  });
-
-  aside.appendChild(sections);
-  document.body.insertBefore(aside, document.body.firstChild);
+  document.body.insertAdjacentHTML('afterbegin', navHTML);
 })();

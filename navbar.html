@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navbar — Kasa Figma UIKit</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* ---- shared component-doc bits ---- */
+    .comp-section { margin-top: 56px; }
+    .comp-section > h3 { margin-bottom: 18px; }
+    .preview-frame {
+      background:
+        linear-gradient(rgba(30,30,26,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,30,26,0.04) 1px, transparent 1px);
+      background-size: 22px 22px;
+      background-color: #FBF8F2;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
+      overflow: hidden;
+    }
+    .preview-frame.flush { padding: 0; }
+    .preview-caption {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      color: var(--ink-40);
+      margin: 12px 2px 0;
+    }
+
+    pre.code {
+      margin: 0;
+      background: #20201C;
+      border-radius: 14px;
+      padding: 22px 24px;
+      overflow-x: auto;
+    }
+    pre.code code {
+      font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+      font-size: 12.5px;
+      line-height: 1.75;
+      white-space: pre;
+      color: #E8E2D6;
+    }
+    pre.code .t { color: #E9901E; }       /* tag */
+    pre.code .a { color: #9DB7C9; }       /* attr */
+    pre.code .s { color: #C9A66B; }       /* string */
+    pre.code .c { color: #6B6B62; }       /* comment */
+
+    .code-head {
+      display: flex; align-items: center; gap: 8px;
+      background: #2A2A25;
+      border-radius: 14px 14px 0 0;
+      padding: 12px 18px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: #B7B2A6;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .code-head + pre.code { border-radius: 0 0 14px 14px; }
+    .dot3 { display: flex; gap: 6px; margin-right: 8px; }
+    .dot3 span { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* ---- usage list ---- */
+    ul.usage { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+    ul.usage li {
+      position: relative;
+      padding-left: 30px;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--ink);
+    }
+    ul.usage li::before {
+      content: "";
+      position: absolute;
+      left: 4px; top: 9px;
+      width: 8px; height: 8px;
+      border-radius: 2px;
+      background: var(--amber);
+    }
+    ul.usage li code, .a11y-box code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 13px;
+      background: var(--amber-soft);
+      color: #9a5a00;
+      padding: 1px 6px;
+      border-radius: 5px;
+    }
+
+    /* ---- a11y box ---- */
+    .a11y-box {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--forest);
+      border-radius: 14px;
+      padding: 26px 30px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+    .a11y-box .ratios { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .a11y-box .rc {
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    /* ============ Live navbar demo ============ */
+    .demo-navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #1E1E1A;
+      padding: 16px 28px;
+      gap: 24px;
+    }
+    .demo-navbar .brand {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 0.02em;
+      color: #E9901E;
+      text-decoration: none;
+    }
+    .demo-navbar .links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .demo-navbar .nlink {
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 400;
+      color: #FFFFFF;
+      text-decoration: none;
+      transition: color 0.18s var(--ease);
+    }
+    .demo-navbar .nlink:hover { color: #E9901E; }
+    .demo-navbar .nlink.active { color: #E9901E; font-weight: 600; }
+    .demo-navbar .cta {
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 600;
+      color: #FFFFFF;
+      background: #E9901E;
+      padding: 9px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: filter 0.18s var(--ease);
+    }
+    .demo-navbar .cta:hover { filter: brightness(1.06); }
+
+    /* sticky demo strip */
+    .sticky-demo {
+      height: 220px;
+      overflow-y: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #FBF8F2;
+    }
+    .sticky-demo .demo-navbar { position: sticky; top: 0; z-index: 2; }
+    .sticky-demo .filler { padding: 24px 28px; color: var(--ink-60); font-size: 14px; }
+    .sticky-demo .filler p { margin: 0 0 14px; }
+
+    @media (max-width: 680px) {
+      .demo-navbar { flex-wrap: wrap; gap: 14px; }
+      .demo-navbar .links { gap: 16px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body data-page="navbar">
+  <main class="content">
+    <div class="page">
+
+      <header>
+        <div class="page-kicker">Components</div>
+        <h2 class="page-title">Navigation Bar</h2>
+        <p class="page-intro">The navigation bar allows users to navigate through the website and access key actions.</p>
+      </header>
+
+      <!-- 1. Example -->
+      <section class="comp-section">
+        <h3>Example</h3>
+        <div class="preview-frame flush">
+          <nav class="demo-navbar">
+            <a class="brand" href="index.html">KASA</a>
+            <div class="links">
+              <a class="nlink active" href="#" aria-current="page">Home</a>
+              <a class="nlink" href="#">Menu</a>
+              <a class="nlink" href="#">Contact</a>
+              <a class="cta" href="#">Reserve a table</a>
+            </div>
+          </nav>
+        </div>
+        <p class="preview-caption">Full-width, sticky navbar on a Charcoal background. “Home” is the active link.</p>
+
+        <div style="margin-top:18px;">
+          <div class="sticky-demo">
+            <nav class="demo-navbar">
+              <a class="brand" href="index.html">KASA</a>
+              <div class="links">
+                <a class="nlink active" href="#" aria-current="page">Home</a>
+                <a class="nlink" href="#">Menu</a>
+                <a class="nlink" href="#">Contact</a>
+                <a class="cta" href="#">Reserve a table</a>
+              </div>
+            </nav>
+            <div class="filler">
+              <p>Scroll this panel — the navbar stays pinned to the top.</p>
+              <p>Authentic, home-style cooking served in a warm room. Our menu changes with the season and the market.</p>
+              <p>Reservations are recommended on weekends. Walk-ins are always welcome at the bar.</p>
+              <p>We are open Tuesday through Sunday, from five in the evening until late.</p>
+              <p>Private dining is available for parties of eight or more.</p>
+              <p>Find us on the corner, under the green awning.</p>
+            </div>
+          </div>
+          <p class="preview-caption">Sticky behavior demonstration.</p>
+        </div>
+      </section>
+
+      <!-- 2. Code -->
+      <section class="comp-section">
+        <h3>Code</h3>
+        <div class="code-head">
+          <span class="dot3"><span style="background:#E9901E;"></span><span style="background:#BE1737;"></span><span style="background:#0C3D2E;"></span></span>
+          navbar.html
+        </div>
+        <pre class="code"><code><span class="t">&lt;nav</span> <span class="a">class</span>=<span class="s">"navbar navbar-expand-lg navbar-dark sticky-top"</span>
+     <span class="a">style</span>=<span class="s">"background-color: #1E1E1A;"</span><span class="t">&gt;</span>
+  <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"container-fluid px-4"</span><span class="t">&gt;</span>
+    <span class="t">&lt;a</span> <span class="a">class</span>=<span class="s">"navbar-brand fw-bold"</span> <span class="a">href</span>=<span class="s">"index.html"</span>
+       <span class="a">style</span>=<span class="s">"color: #E9901E; font-family: 'Anek Devanagari', sans-serif; font-size: 1.5rem;"</span><span class="t">&gt;</span>
+      KASA
+    <span class="t">&lt;/a&gt;</span>
+    <span class="t">&lt;button</span> <span class="a">class</span>=<span class="s">"navbar-toggler"</span> <span class="a">type</span>=<span class="s">"button"</span>
+      <span class="a">data-bs-toggle</span>=<span class="s">"collapse"</span> <span class="a">data-bs-target</span>=<span class="s">"#navbarNav"</span>
+      <span class="a">aria-controls</span>=<span class="s">"navbarNav"</span> <span class="a">aria-expanded</span>=<span class="s">"false"</span>
+      <span class="a">aria-label</span>=<span class="s">"Toggle navigation"</span><span class="t">&gt;</span>
+      <span class="t">&lt;span</span> <span class="a">class</span>=<span class="s">"navbar-toggler-icon"</span><span class="t">&gt;&lt;/span&gt;</span>
+    <span class="t">&lt;/button&gt;</span>
+    <span class="t">&lt;div</span> <span class="a">class</span>=<span class="s">"collapse navbar-collapse"</span> <span class="a">id</span>=<span class="s">"navbarNav"</span><span class="t">&gt;</span>
+      <span class="t">&lt;ul</span> <span class="a">class</span>=<span class="s">"navbar-nav ms-auto align-items-center gap-3"</span><span class="t">&gt;</span>
+        <span class="t">&lt;li</span> <span class="a">class</span>=<span class="s">"nav-item"</span><span class="t">&gt;</span>
+          <span class="t">&lt;a</span> <span class="a">class</span>=<span class="s">"nav-link fw-semibold"</span> <span class="a">aria-current</span>=<span class="s">"page"</span> <span class="a">href</span>=<span class="s">"#"</span>
+             <span class="a">style</span>=<span class="s">"color: #E9901E; font-family: 'Anek Latin', sans-serif;"</span><span class="t">&gt;</span>
+            Home
+          <span class="t">&lt;/a&gt;</span>
+        <span class="t">&lt;/li&gt;</span>
+        <span class="t">&lt;li</span> <span class="a">class</span>=<span class="s">"nav-item"</span><span class="t">&gt;</span>
+          <span class="t">&lt;a</span> <span class="a">class</span>=<span class="s">"nav-link"</span> <span class="a">href</span>=<span class="s">"menu.html"</span>
+             <span class="a">style</span>=<span class="s">"color: #FFFFFF; font-family: 'Anek Latin', sans-serif;"</span><span class="t">&gt;</span>
+            Menu
+          <span class="t">&lt;/a&gt;</span>
+        <span class="t">&lt;/li&gt;</span>
+        <span class="t">&lt;li</span> <span class="a">class</span>=<span class="s">"nav-item"</span><span class="t">&gt;</span>
+          <span class="t">&lt;a</span> <span class="a">class</span>=<span class="s">"nav-link"</span> <span class="a">href</span>=<span class="s">"contact.html"</span>
+             <span class="a">style</span>=<span class="s">"color: #FFFFFF; font-family: 'Anek Latin', sans-serif;"</span><span class="t">&gt;</span>
+            Contact
+          <span class="t">&lt;/a&gt;</span>
+        <span class="t">&lt;/li&gt;</span>
+        <span class="t">&lt;li</span> <span class="a">class</span>=<span class="s">"nav-item"</span><span class="t">&gt;</span>
+          <span class="t">&lt;a</span> <span class="a">href</span>=<span class="s">"reservations.html"</span> <span class="a">class</span>=<span class="s">"btn px-3 py-2"</span>
+             <span class="a">style</span>=<span class="s">"background-color: #E9901E; color: #FFFFFF; font-family: 'Anek Latin', sans-serif; border-radius: 4px;"</span><span class="t">&gt;</span>
+            Reserve a table
+          <span class="t">&lt;/a&gt;</span>
+        <span class="t">&lt;/li&gt;</span>
+      <span class="t">&lt;/ul&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/nav&gt;</span></code></pre>
+      </section>
+
+      <!-- 3. Usage -->
+      <section class="comp-section">
+        <h3>Usage</h3>
+        <ul class="usage">
+          <li>The navigation bar must appear on all pages.</li>
+          <li>The wordmark <b>KASA</b> must always link to the homepage.</li>
+          <li>The active page link is highlighted in Amber <code>#E9901E</code>, SemiBold weight.</li>
+          <li>The <b>Reserve a table</b> CTA button must always be visible in the navbar.</li>
+          <li>The navbar must remain sticky at the top of the viewport on scroll.</li>
+          <li>On mobile, the nav collapses into a hamburger menu.</li>
+        </ul>
+      </section>
+
+      <!-- 4. Accessibility -->
+      <section class="comp-section">
+        <h3>Accessibility Considerations</h3>
+        <div class="a11y-box">
+          <p style="margin:0;">This navbar uses White and Amber text on a Charcoal <code>#1E1E1A</code> background. White on Charcoal achieves <b>16.1:1</b> contrast — well above the WCAG AA requirement of 4.5:1. Amber on Charcoal achieves <b>6.8:1</b>, meeting AA for all text sizes. The “Reserve a table” button uses White text on Amber fill at <b>3.1:1</b> — ensure the button text remains at least 18px or bold to meet WCAG AA for large text.</p>
+          <div class="ratios">
+            <span class="rc" style="background:#1E1E1A;color:#FFFFFF;">White on Charcoal · 16.1:1</span>
+            <span class="rc" style="background:#1E1E1A;color:#E9901E;">Amber on Charcoal · 6.8:1</span>
+            <span class="rc" style="background:#E9901E;color:#FFFFFF;">White on Amber · 3.1:1</span>
+          </div>
+        </div>
+      </section>
+
+      <footer class="doc-footer">
+        <span>Kasa — Figma UIKit · Components</span>
+        <span>Documented by <b>Anusha Prasad</b></span>
+      </footer>
+
+    </div>
+  </main>
+  <script src="../nav.js"></script>
+</body>
+</html>

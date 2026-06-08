@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logo — Kasa Figma UIKit</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 8px;
+    }
+    .logo-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .logo-stage {
+      height: 220px;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      position: relative;
+    }
+    .stage-light { background: var(--cream); }
+    .stage-white { background: #FBF8F2; }
+    .stage-dark  { background: var(--forest); }
+    .logo-stage svg { width: 168px; height: auto; }
+    .logo-stage.favicon-stage { background: var(--cream); }
+
+    .favicon-tile {
+      width: 96px; height: 96px;
+      border-radius: 20px;
+      background: var(--forest);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 26px rgba(12,61,46,0.28);
+    }
+    .favicon-tile svg { width: 60px; height: auto; }
+    .favicon-row { display: flex; align-items: flex-end; gap: 20px; }
+    .favicon-mini {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--forest);
+      display: grid; place-items: center;
+    }
+    .favicon-mini svg { width: 21px; }
+    .favicon-tiny {
+      width: 18px; height: 18px;
+      border-radius: 5px;
+      background: var(--forest);
+      display: grid; place-items: center;
+    }
+    .favicon-tiny svg { width: 12px; }
+
+    .logo-body {
+      padding: 22px 26px 26px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .logo-body h5 {
+      margin: 0 0 8px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 19px;
+    }
+    .logo-body .tagrow { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .pill {
+      font-family: var(--font-ui);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+      background: var(--amber-soft);
+      color: #9a5a00;
+    }
+    .logo-body p { margin: 0; color: var(--ink-60); font-size: 14.5px; line-height: 1.6; }
+
+    @media (max-width: 880px) {
+      .logo-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-page="logo">
+  <main class="content">
+    <div class="page">
+
+      <header>
+        <div class="page-kicker">Foundations</div>
+        <h2 class="page-title">Logo Variations</h2>
+        <p class="page-intro">The Kasa wordmark in four forms. Each variation has a specific context, choosing the right one keeps the mark legible and on-brand across every surface.</p>
+      </header>
+
+      <section class="section" style="margin-top:44px;">
+        <div class="logo-grid">
+
+          <!-- 1. Color (Primary) -->
+          <div class="logo-card">
+            <div class="logo-stage stage-light">
+              <svg viewBox="0 0 86 35" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kasa logo, color">
+                <path d="M21.654 23.49H15.12L8.514 13.41H7.11V10.026H8.514L15.03 0.485988H21.402L13.248 12.042V10.782L21.654 23.49ZM7.668 23.49H2.088V0.485988H7.668V23.49ZM27.8286 23.49H22.1406L28.7286 0.485988H37.1886L43.7406 23.49H38.0526L33.1746 4.19399H32.7606L27.8286 23.49ZM38.1066 18.072H27.7386V13.698H38.1066V18.072ZM53.2848 23.976C52.2168 23.976 51.2148 23.904 50.2788 23.76C49.3548 23.628 48.5088 23.454 47.7408 23.238C46.9848 23.01 46.3188 22.776 45.7428 22.536L45.2568 17.352C46.2048 17.796 47.3268 18.21 48.6228 18.594C49.9188 18.966 51.2928 19.152 52.7448 19.152C54.1488 19.152 55.1448 18.978 55.7328 18.63C56.3328 18.27 56.6328 17.712 56.6328 16.956V16.83C56.6328 16.326 56.4948 15.918 56.2188 15.606C55.9548 15.282 55.5048 14.988 54.8688 14.724C54.2448 14.448 53.3988 14.154 52.3308 13.842C50.7228 13.362 49.3788 12.828 48.2988 12.24C47.2308 11.652 46.4328 10.92 45.9048 10.044C45.3768 9.15599 45.1128 8.03399 45.1128 6.67799V6.44399C45.1128 4.35599 45.8208 2.75999 47.2368 1.65599C48.6648 0.551989 50.7588 -1.09673e-05 53.5188 -1.09673e-05C55.1748 -1.09673e-05 56.6028 0.143989 57.8028 0.43199C59.0148 0.719989 60.0408 1.06199 60.8808 1.45799L61.3668 6.28199C60.4428 5.83799 59.3928 5.46599 58.2168 5.16599C57.0528 4.85399 55.8048 4.69799 54.4728 4.69799C53.5368 4.69799 52.7988 4.77599 52.2588 4.93199C51.7308 5.08799 51.3588 5.31599 51.1428 5.61599C50.9268 5.90399 50.8188 6.25799 50.8188 6.67799V6.74999C50.8188 7.18199 50.9388 7.55999 51.1788 7.88399C51.4308 8.20799 51.8748 8.51999 52.5108 8.81999C53.1588 9.11999 54.0768 9.44399 55.2648 9.79199C56.8608 10.26 58.1808 10.764 59.2248 11.304C60.2808 11.832 61.0668 12.522 61.5828 13.374C62.1108 14.214 62.3748 15.336 62.3748 16.74V17.028C62.3748 19.344 61.6248 21.084 60.1248 22.248C58.6248 23.4 56.3448 23.976 53.2848 23.976ZM69.4887 23.49H63.8007L70.3887 0.485988H78.8487L85.4007 23.49H79.7127L74.8347 4.19399H74.4207L69.4887 23.49ZM79.7667 18.072H69.3987V13.698H79.7667V18.072Z" fill="#E9951E"></path>
+              </svg>
+            </div>
+            <div class="logo-body">
+              <div class="tagrow"><h5 style="height: 22px">Color</h5><span class="pill" style="height: 22px; text-align: center; line-height: 1.6">Primary</span></div>
+              <p>The color logo is the primary logo and should be used against light backgrounds.</p>
+            </div>
+          </div>
+
+          <!-- 2. Grayscale -->
+          <div class="logo-card">
+            <div class="logo-stage stage-white">
+              <svg viewBox="0 0 86 35" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kasa logo, grayscale">
+                <path d="M21.654 23.49H15.12L8.514 13.41H7.11V10.026H8.514L15.03 0.485988H21.402L13.248 12.042V10.782L21.654 23.49ZM7.668 23.49H2.088V0.485988H7.668V23.49ZM27.8286 23.49H22.1406L28.7286 0.485988H37.1886L43.7406 23.49H38.0526L33.1746 4.19399H32.7606L27.8286 23.49ZM38.1066 18.072H27.7386V13.698H38.1066V18.072ZM53.2848 23.976C52.2168 23.976 51.2148 23.904 50.2788 23.76C49.3548 23.628 48.5088 23.454 47.7408 23.238C46.9848 23.01 46.3188 22.776 45.7428 22.536L45.2568 17.352C46.2048 17.796 47.3268 18.21 48.6228 18.594C49.9188 18.966 51.2928 19.152 52.7448 19.152C54.1488 19.152 55.1448 18.978 55.7328 18.63C56.3328 18.27 56.6328 17.712 56.6328 16.956V16.83C56.6328 16.326 56.4948 15.918 56.2188 15.606C55.9548 15.282 55.5048 14.988 54.8688 14.724C54.2448 14.448 53.3988 14.154 52.3308 13.842C50.7228 13.362 49.3788 12.828 48.2988 12.24C47.2308 11.652 46.4328 10.92 45.9048 10.044C45.3768 9.15599 45.1128 8.03399 45.1128 6.67799V6.44399C45.1128 4.35599 45.8208 2.75999 47.2368 1.65599C48.6648 0.551989 50.7588 -1.09673e-05 53.5188 -1.09673e-05C55.1748 -1.09673e-05 56.6028 0.143989 57.8028 0.43199C59.0148 0.719989 60.0408 1.06199 60.8808 1.45799L61.3668 6.28199C60.4428 5.83799 59.3928 5.46599 58.2168 5.16599C57.0528 4.85399 55.8048 4.69799 54.4728 4.69799C53.5368 4.69799 52.7988 4.77599 52.2588 4.93199C51.7308 5.08799 51.3588 5.31599 51.1428 5.61599C50.9268 5.90399 50.8188 6.25799 50.8188 6.67799V6.74999C50.8188 7.18199 50.9388 7.55999 51.1788 7.88399C51.4308 8.20799 51.8748 8.51999 52.5108 8.81999C53.1588 9.11999 54.0768 9.44399 55.2648 9.79199C56.8608 10.26 58.1808 10.764 59.2248 11.304C60.2808 11.832 61.0668 12.522 61.5828 13.374C62.1108 14.214 62.3748 15.336 62.3748 16.74V17.028C62.3748 19.344 61.6248 21.084 60.1248 22.248C58.6248 23.4 56.3448 23.976 53.2848 23.976ZM69.4887 23.49H63.8007L70.3887 0.485988H78.8487L85.4007 23.49H79.7127L74.8347 4.19399H74.4207L69.4887 23.49ZM79.7667 18.072H69.3987V13.698H79.7667V18.072Z" fill="#3A3A35"></path>
+              </svg>
+            </div>
+            <div class="logo-body">
+              <div class="tagrow"><h5>Grayscale</h5></div>
+              <p>The grayscale logo should be used when printing in color is not an option.</p>
+            </div>
+          </div>
+
+          <!-- 3. Color Inversed -->
+          <div class="logo-card">
+            <div class="logo-stage stage-dark">
+              <svg viewBox="0 0 86 35" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kasa logo, inversed">
+                <path d="M21.654 23.49H15.12L8.514 13.41H7.11V10.026H8.514L15.03 0.485988H21.402L13.248 12.042V10.782L21.654 23.49ZM7.668 23.49H2.088V0.485988H7.668V23.49ZM27.8286 23.49H22.1406L28.7286 0.485988H37.1886L43.7406 23.49H38.0526L33.1746 4.19399H32.7606L27.8286 23.49ZM38.1066 18.072H27.7386V13.698H38.1066V18.072ZM53.2848 23.976C52.2168 23.976 51.2148 23.904 50.2788 23.76C49.3548 23.628 48.5088 23.454 47.7408 23.238C46.9848 23.01 46.3188 22.776 45.7428 22.536L45.2568 17.352C46.2048 17.796 47.3268 18.21 48.6228 18.594C49.9188 18.966 51.2928 19.152 52.7448 19.152C54.1488 19.152 55.1448 18.978 55.7328 18.63C56.3328 18.27 56.6328 17.712 56.6328 16.956V16.83C56.6328 16.326 56.4948 15.918 56.2188 15.606C55.9548 15.282 55.5048 14.988 54.8688 14.724C54.2448 14.448 53.3988 14.154 52.3308 13.842C50.7228 13.362 49.3788 12.828 48.2988 12.24C47.2308 11.652 46.4328 10.92 45.9048 10.044C45.3768 9.15599 45.1128 8.03399 45.1128 6.67799V6.44399C45.1128 4.35599 45.8208 2.75999 47.2368 1.65599C48.6648 0.551989 50.7588 -1.09673e-05 53.5188 -1.09673e-05C55.1748 -1.09673e-05 56.6028 0.143989 57.8028 0.43199C59.0148 0.719989 60.0408 1.06199 60.8808 1.45799L61.3668 6.28199C60.4428 5.83799 59.3928 5.46599 58.2168 5.16599C57.0528 4.85399 55.8048 4.69799 54.4728 4.69799C53.5368 4.69799 52.7988 4.77599 52.2588 4.93199C51.7308 5.08799 51.3588 5.31599 51.1428 5.61599C50.9268 5.90399 50.8188 6.25799 50.8188 6.67799V6.74999C50.8188 7.18199 50.9388 7.55999 51.1788 7.88399C51.4308 8.20799 51.8748 8.51999 52.5108 8.81999C53.1588 9.11999 54.0768 9.44399 55.2648 9.79199C56.8608 10.26 58.1808 10.764 59.2248 11.304C60.2808 11.832 61.0668 12.522 61.5828 13.374C62.1108 14.214 62.3748 15.336 62.3748 16.74V17.028C62.3748 19.344 61.6248 21.084 60.1248 22.248C58.6248 23.4 56.3448 23.976 53.2848 23.976ZM69.4887 23.49H63.8007L70.3887 0.485988H78.8487L85.4007 23.49H79.7127L74.8347 4.19399H74.4207L69.4887 23.49ZM79.7667 18.072H69.3987V13.698H79.7667V18.072Z" fill="#F5F0E8"></path>
+              </svg>
+            </div>
+            <div class="logo-body">
+              <div class="tagrow"><h5>Color Inversed</h5></div>
+              <p>The color inversed logo should be used against dark backgrounds to ensure legibility.</p>
+            </div>
+          </div>
+
+          <!-- 4. Favicon -->
+          <div class="logo-card">
+            <div class="logo-stage favicon-stage">
+              <div class="favicon-row">
+                <div class="favicon-tile">
+                  <svg viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kasa favicon">
+                    <path d="M21.654 23.49H15.12L8.514 13.41H7.11V10.026H8.514L15.03 0.485988H21.402L13.248 12.042V10.782L21.654 23.49ZM7.668 23.49H2.088V0.485988H7.668V23.49Z" fill="#E9951E"></path>
+                  </svg>
+                </div>
+                <div class="favicon-mini">
+                  <svg viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M21.654 23.49H15.12L8.514 13.41H7.11V10.026H8.514L15.03 0.485988H21.402L13.248 12.042V10.782L21.654 23.49ZM7.668 23.49H2.088V0.485988H7.668V23.49Z" fill="#E9951E"></path>
+                  </svg>
+                </div>
+                <div class="favicon-tiny">
+                  <svg viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M21.654 23.49H15.12L8.514 13.41H7.11V10.026H8.514L15.03 0.485988H21.402L13.248 12.042V10.782L21.654 23.49ZM7.668 23.49H2.088V0.485988H7.668V23.49Z" fill="#E9951E"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="logo-body">
+              <div class="tagrow"><h5>Favicon</h5></div>
+              <p>The favicon logo uses just the “K” monogram, sized for a browser tab next to the page title.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <footer class="doc-footer">
+        <span>Kasa — Figma UIKit · Foundations</span>
+        <span>Documented by <b>Anusha Prasad</b></span>
+      </footer>
+
+    </div>
+  </main>
+  <script src="../nav.js"></script>
+</body>
+</html>

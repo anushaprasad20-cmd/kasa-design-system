@@ -1,233 +1,241 @@
 /* ============================================================
-   Kasa — Figma UI Kit · Design System Documentation
-   Shared stylesheet (tokens · layout · nav · typography)
+   Kasa Design System — styles.css
+   Shared across all documentation pages
    ============================================================ */
 
+/* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;500;600;700&family=Anek+Latin:wght@400;500;600;700&display=swap');
 
-/* ---------- Tokens ---------- */
+/* ---- CSS Custom Properties ---- */
 :root {
   /* Brand colors */
-  --amber:    #E9901E;
-  --cream:    #F5F0E8;
-  --crimson:  #BE1737;
-  --navy:     #004982;
-  --forest:   #0C3D2E;
-  --charcoal: #1E1E1A;
-  --white:    #FFFFFF;
+  --amber:       #E9901E;
+  --amber-soft:  rgba(233,144,30,0.14);
+  --cream:       #F5F0E8;
+  --forest:      #0C3D2E;
+  --crimson:     #BE1737;
+  --navy:        #004982;
+  --charcoal:    #1E1E1A;
+  --white:       #FFFFFF;
 
-  /* Derived neutrals */
-  --ink:        #1E1E1A;
-  --ink-60:     rgba(30, 30, 26, 0.60);
-  --ink-40:     rgba(30, 30, 26, 0.40);
-  --line:       rgba(30, 30, 26, 0.10);
-  --line-soft:  rgba(30, 30, 26, 0.06);
-  --amber-soft: rgba(233, 144, 30, 0.12);
+  /* Ink scale */
+  --ink:         #1E1E1A;
+  --ink-60:      rgba(30,30,26,0.60);
+  --ink-40:      rgba(30,30,26,0.40);
 
-  /* Type families */
-  --font-display: 'Anek Devanagari', sans-serif; /* H1–H3, body */
-  --font-ui:      'Anek Latin', sans-serif;       /* nav, labels */
+  /* Surfaces & borders */
+  --line:        rgba(30,30,26,0.14);
+  --line-soft:   rgba(30,30,26,0.08);
 
-  /* Type scale */
-  --t-h1: 56px;
-  --t-h2: 36px;
-  --t-h3: 24px;
-  --t-body: 16px;
-  --t-small: 14px;
-  --t-label: 12px;
-  --t-nav: 16px;
+  /* Typography */
+  --font-display: 'Anek Devanagari', sans-serif;
+  --font-ui:      'Anek Latin', sans-serif;
+
+  /* Motion */
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   /* Layout */
-  --nav-w: 280px;
-  --maxw: 920px;
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --sidebar-w: 260px;
 }
 
-/* ---------- Reset ---------- */
-*, *::before, *::after { box-sizing: border-box; }
-html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+/* ---- Reset & Base ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
 body {
-  margin: 0;
-  background: var(--cream);
-  color: var(--ink);
   font-family: var(--font-display);
-  font-size: var(--t-body);
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--cream);
+  display: flex;
+  min-height: 100vh;
   line-height: 1.6;
 }
-img { max-width: 100%; display: block; }
+
 a { color: inherit; }
+img { display: block; max-width: 100%; }
 
-/* ---------- Typography scale ---------- */
-h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0; line-height: 1.1; }
-h1 { font-size: var(--t-h1); letter-spacing: -0.02em; }
-h2 { font-size: var(--t-h2); letter-spacing: -0.01em; }
-h3 { font-size: var(--t-h3); }
-.body-lg { font-size: var(--t-body); }
-.body-sm { font-size: var(--t-small); color: var(--ink-60); }
-.label {
-  font-family: var(--font-ui);
-  font-weight: 500;
-  font-size: var(--t-label);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-60);
-}
-
-/* ============================================================
-   Layout shell
-   ============================================================ */
-.shell { display: flex; min-height: 100vh; }
-
-/* ---------- Sidebar nav ---------- */
-.sidebar {
-  position: fixed;
-  inset: 0 auto 0 0;
-  width: var(--nav-w);
-  height: 100vh;
+/* ---- Sidebar Nav ---- */
+.doc-sidebar {
+  width: var(--sidebar-w);
+  flex: none;
   background: var(--white);
   border-right: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
   overflow-y: auto;
-  z-index: 10;
-}
-.nav-logo {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 28px 28px 24px;
-  text-decoration: none;
-  color: var(--ink);
-  border-bottom: 1px solid var(--line-soft);
+  z-index: 100;
 }
-.nav-logo-img {
-  width: 116px;
-  height: auto;
+
+.doc-sidebar::-webkit-scrollbar { width: 4px; }
+.doc-sidebar::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+
+.sidebar-logo {
+  padding: 28px 24px 22px;
+  border-bottom: 1px solid var(--line-soft);
+  flex: none;
+}
+
+.sidebar-logo a {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.02em;
+  color: var(--amber);
+  text-decoration: none;
   display: block;
 }
-.nav-logo-sub {
+
+.sidebar-logo .tagline {
   font-family: var(--font-ui);
   font-size: 11px;
-  font-weight: 500;
+  color: var(--ink-40);
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+
+.sidebar-nav {
+  padding: 20px 0 32px;
+  flex: 1;
+}
+
+.nav-group {
+  margin-bottom: 6px;
+}
+
+.nav-group-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-40);
-  padding-left: 2px;
-}
-
-.nav-sections { padding: 16px 0 32px; }
-.nav-group { border: none; }
-.nav-group-head {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 28px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: var(--font-ui);
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-40);
-}
-.nav-group-head:hover { color: var(--ink-60); }
-.nav-chev {
-  width: 9px; height: 9px;
-  border-right: 1.6px solid currentColor;
-  border-bottom: 1.6px solid currentColor;
-  transform: rotate(45deg);
-  transition: transform 0.25s var(--ease);
-}
-.nav-group.collapsed .nav-chev { transform: rotate(-45deg); }
-.nav-group-links { display: flex; flex-direction: column; overflow: hidden; }
-.nav-group.collapsed .nav-group-links { display: none; }
-
-.nav-link {
-  position: relative;
+  padding: 14px 24px 6px;
   display: block;
-  padding: 9px 28px 9px 28px;
-  text-decoration: none;
-  font-family: var(--font-ui);
-  font-weight: 400;
-  font-size: var(--t-nav);
-  color: var(--ink-60);
-  transition: color 0.18s var(--ease), background 0.18s var(--ease);
 }
-.nav-link:hover { color: var(--ink); background: var(--line-soft); }
-.nav-link.active {
-  font-weight: 600;
-  color: var(--charcoal);
+
+.nav-group-links {
+  list-style: none;
+}
+
+.nav-group-links a {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink-60);
+  text-decoration: none;
+  padding: 7px 24px 7px 32px;
+  border-left: 2px solid transparent;
+  transition: color 0.15s var(--ease), background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.nav-group-links a:hover {
+  color: var(--ink);
   background: var(--amber-soft);
 }
-.nav-link.active::before {
-  content: "";
-  position: absolute;
-  left: 0; top: 6px; bottom: 6px;
-  width: 3px;
-  border-radius: 0 3px 3px 0;
-  background: var(--amber);
+
+.nav-group-links a.active {
+  color: var(--amber);
+  font-weight: 600;
+  border-left-color: var(--amber);
+  background: var(--amber-soft);
 }
 
-/* ---------- Content area ---------- */
+/* ---- Main Content ---- */
 .content {
-  margin-left: var(--nav-w);
   flex: 1;
-  padding: 72px 64px 120px;
+  min-width: 0;
+  background: var(--cream);
+  padding: 0 0 80px;
 }
-.page { max-width: var(--maxw); margin: 0 auto; }
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 56px 48px 48px;
+}
+
+/* ---- Page header ---- */
 .page-kicker {
   font-family: var(--font-ui);
-  font-weight: 600;
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--amber);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
-.page-title { margin-bottom: 18px; }
+
+.page-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 1.1;
+  color: var(--charcoal);
+  letter-spacing: -0.02em;
+}
+
 .page-intro {
-  font-size: 19px;
-  line-height: 1.55;
+  margin-top: 16px;
+  font-family: var(--font-display);
+  font-size: 17px;
+  line-height: 1.65;
   color: var(--ink-60);
   max-width: 60ch;
-  margin: 0 0 8px;
 }
 
-/* ---------- Reusable doc bits ---------- */
-.section { margin-top: 64px; }
-.section-head { margin-bottom: 28px; }
-.section-head h2 { margin-bottom: 8px; }
-.divider { height: 1px; background: var(--line); border: none; margin: 56px 0 0; }
-
-.card-surface {
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 32px;
+/* ---- Sections ---- */
+.section {
+  margin-top: 56px;
 }
 
-/* ---------- Footer credit ---------- */
+.section-head {
+  margin-bottom: 26px;
+}
+
+.section h3, .comp-section > h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--charcoal);
+  margin-bottom: 18px;
+}
+
+/* ---- Dividers ---- */
+.divider, hr.divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 0;
+}
+
+/* ---- Doc footer ---- */
 .doc-footer {
-  margin-top: 96px;
+  margin-top: 80px;
   padding-top: 28px;
   border-top: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   font-family: var(--font-ui);
   font-size: 13px;
   color: var(--ink-40);
+  flex-wrap: wrap;
+  gap: 8px;
 }
-.doc-footer b { color: var(--ink-60); font-weight: 600; }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 880px) {
-  :root { --nav-w: 0px; }
-  .sidebar { transform: translateX(-100%); }
-  .content { margin-left: 0; padding: 48px 28px 96px; }
-  :root { --t-h1: 40px; --t-h2: 28px; }
+/* ---- Responsive ---- */
+@media (max-width: 960px) {
+  .page { padding: 40px 28px 40px; }
+}
+
+@media (max-width: 760px) {
+  .doc-sidebar { display: none; }
+  .content { padding-bottom: 60px; }
+  .page { padding: 32px 20px; }
+  .page-title { font-size: 32px; }
 }
