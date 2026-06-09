@@ -37,7 +37,7 @@
           <span class="nav-group-label">Page Patterns</span>
           <ul class="nav-group-links">
             <li><a href="${root}patterns/home-pattern.html" class="${page === 'homepage' ? 'active' : ''}">Homepage</a></li>
-            <li><a href="${root}patterns/project-pattern.html" class="${page === 'project' ? 'active' : ''}">Project</a></li>
+            <li><a href="${root}patterns/project-pattern.html" class="${page === 'project' ? 'active' : ''}">Menu</a></li>
           </ul>
         </div>
 
